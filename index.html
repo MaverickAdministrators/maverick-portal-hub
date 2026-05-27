@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Maverick Administrators — Broker Portal Directory</title>
+<meta name="description" content="Internal landing hub for Maverick Administrators to select the correct broker-specific Newborn Medical Contractual Liability Insurance Portal." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="logo_maverick.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #0d1f35;
+    --navy-mid: #162d4a;
+    --gold: #c8a96e;
+    --gold-soft: #d9bf91;
+    --cream: #f5f0e8;
+    --text: #0d1f35;
+    --muted: #6b7a8d;
+    --white: #ffffff;
+    --border: rgba(200, 169, 110, 0.28);
+    --border-strong: rgba(200, 169, 110, 0.55);
+    --shadow-sm: 0 1px 2px rgba(13, 31, 53, 0.04), 0 2px 8px rgba(13, 31, 53, 0.04);
+    --shadow-md: 0 4px 14px rgba(13, 31, 53, 0.08), 0 12px 32px rgba(13, 31, 53, 0.06);
+    --radius-lg: 14px;
+    --radius-md: 10px;
+    --radius-sm: 6px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(1200px 600px at 50% -200px, rgba(22, 45, 74, 0.06), transparent 60%),
+      linear-gradient(180deg, var(--cream) 0%, #efe7da 100%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+    font-size: 16px;
+  }
+
+  a { color: var(--navy); }
+
+  /* Skip link for accessibility */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 8px;
+    background: var(--navy);
+    color: var(--white);
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    z-index: 100;
+  }
+  .skip-link:focus { left: 16px; }
+
+  /* Focus ring */
+  :focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  .page {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 6px 4px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .brand-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brand-logo {
+    height: 48px;
+    width: auto;
+    max-width: min(360px, 78vw);
+    display: block;
+  }
+
+  .internal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+  }
+
+  .internal-badge::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(34px, 5.2vw, 52px);
+    line-height: 1.08;
+    margin: 0;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    max-width: 22ch;
+  }
+
+  .subtitle {
+    margin: 0;
+    color: var(--muted);
+    font-size: clamp(15px, 1.6vw, 17px);
+    max-width: 56ch;
+    line-height: 1.55;
+  }
+
+  /* Card grid */
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .card-grid { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-soft) 100%);
+    opacity: 0.85;
+  }
+
+  .card:hover,
+  .card:focus-within {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-strong);
+  }
+
+  .card-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .card-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.15;
+    color: var(--navy);
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+
+  .card-desc {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--navy);
+    color: var(--white);
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    padding: 14px 20px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--navy);
+    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+    min-height: 48px;
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .card-cta:hover,
+  .card-cta:focus-visible {
+    background: var(--navy-mid);
+    border-color: var(--gold);
+  }
+
+  .card-cta .arrow {
+    transition: transform 160ms ease;
+    display: inline-block;
+  }
+
+  .card-cta:hover .arrow,
+  .card-cta:focus-visible .arrow {
+    transform: translateX(3px);
+  }
+
+  /* Note below cards */
+  .note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 64ch;
+    margin: 8px auto 0;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .note strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+
+  footer .sep {
+    color: var(--gold);
+    margin: 0 8px;
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 32px 18px 56px; gap: 24px; }
+    .card { padding: 24px 20px 22px; }
+    .card-title { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to portal selection</a>
+
+<div class="page">
+
+  <header class="header">
+    <div class="brand-mark">
+      <img src="logo_maverick.png" alt="Maverick Administrators" class="brand-logo" />
+    </div>
+    <span class="internal-badge" aria-label="For internal use only">Internal Use</span>
+    <h1>Broker Portal Directory</h1>
+    <p class="subtitle">Select the correct broker-specific Newborn Medical Contractual Liability Insurance Portal.</p>
+  </header>
+
+  <main id="main">
+    <ul class="card-grid" role="list">
+
+      <li>
+        <article class="card" aria-labelledby="card-ifi-title">
+          <span class="card-eyebrow">Broker</span>
+          <h2 class="card-title" id="card-ifi-title">IFI</h2>
+          <p class="card-desc">Dedicated Singleton and Split Embryo application routing for IFI-bound submissions.</p>
+          <a class="card-cta" href="https://maverickadministrators.github.io/maverick-form-portal/" aria-label="Open IFI Portal">
+            <span>Open IFI Portal</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </article>
+      </li>
+
+      <li>
+        <article class="card" aria-labelledby="card-art-title">
+          <span class="card-eyebrow">Broker</span>
+          <h2 class="card-title" id="card-art-title">ART Risk</h2>
+          <p class="card-desc">Dedicated Singleton and Split Embryo application routing for ART Risk-bound submissions.</p>
+          <a class="card-cta" href="https://maverickadministrators.github.io/maverick-form-portal-art/" aria-label="Open ART Risk Portal">
+            <span>Open ART Risk Portal</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </article>
+      </li>
+
+      <li>
+        <article class="card" aria-labelledby="card-whillock-title">
+          <span class="card-eyebrow">Broker</span>
+          <h2 class="card-title" id="card-whillock-title">Whillock</h2>
+          <p class="card-desc">Dedicated Singleton and Split Embryo application routing for Whillock-bound submissions.</p>
+          <a class="card-cta" href="https://maverickadministrators.github.io/maverick-form-portal-whillock/" aria-label="Open Whillock Portal">
+            <span>Open Whillock Portal</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </article>
+      </li>
+
+    </ul>
+
+    <p class="note">Each portal uses the same <strong>agency lookup</strong> and <strong>rate table</strong>, then routes to the selected broker&rsquo;s forms.</p>
+  </main>
+
+  <footer>
+    <span>Maverick Administrators</span>
+    <span class="sep" aria-hidden="true">·</span>
+    <span>Internal portal directory</span>
+  </footer>
+
+</div>
+</body>
+</html>
