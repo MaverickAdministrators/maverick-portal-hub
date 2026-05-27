@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Maverick Administrators — Broker Portal Directory</title>
-<meta name="description" content="Internal landing hub for Maverick Administrators to select the correct broker-specific Newborn Medical Contractual Liability Insurance Portal." />
+<title>Maverick Administrators — Internal Resource Hub</title>
+<meta name="description" content="Internal resource hub for Maverick Administrators portals, trackers, and reports." />
 <meta name="robots" content="noindex, nofollow" />
 <link rel="icon" href="logo_maverick.png" type="image/png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -255,6 +255,107 @@
     transform: translateX(3px);
   }
 
+  .section-divider {
+    width: 100%;
+    margin: 48px 0 28px 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(200, 169, 110, 0.35);
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--navy);
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+
+  .trackers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    width: 100%;
+  }
+
+  .tracker-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 12px rgba(13, 31, 53, 0.05);
+  }
+
+  .tracker-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(13, 31, 53, 0.1);
+    border-color: var(--gold);
+  }
+
+  .tracker-icon {
+    width: 38px;
+    height: 38px;
+    background: rgba(13, 31, 53, 0.06);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .tracker-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--navy);
+    fill: none;
+    stroke-width: 2;
+  }
+
+  .tracker-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .tracker-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.4;
+    margin-bottom: 2px;
+  }
+
+  .tracker-type {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  .tracker-arrow {
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .tracker-card:hover .tracker-arrow {
+    transform: translateX(3px);
+    color: var(--gold);
+  }
+
   /* Note below cards */
   .note {
     text-align: center;
@@ -305,8 +406,8 @@
       <img src="logo_maverick.png" alt="Maverick Administrators" class="brand-logo" />
     </div>
     <span class="internal-badge" aria-label="For internal use only">Internal Use</span>
-    <h1>Broker Portal Directory</h1>
-    <p class="subtitle">Select the correct broker-specific Newborn Medical Contractual Liability Insurance Portal.</p>
+    <h1>Internal Resource Hub</h1>
+    <p class="subtitle">General Repository — Portals &amp; Trackers</p>
   </header>
 
   <main id="main">
@@ -349,6 +450,105 @@
       </li>
 
     </ul>
+
+    <div class="section-divider">
+      <h2 class="section-title">Trackers &amp; Reports</h2>
+    </div>
+
+    <div class="trackers-grid">
+
+      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQC7qnSLYjqwQ6Hbes_pJ1uYAfMhxeAfGJ6SbjgHXDWcfYY?e=ux6AVD" target="_blank">
+        <div class="tracker-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        </div>
+        <div class="tracker-info">
+          <div class="tracker-name">Newborn Insurance Policy Tracker</div>
+          <div class="tracker-type">Excel · SharePoint</div>
+        </div>
+        <div class="tracker-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a class="tracker-card" href="https://morganandfranz.sharepoint.com/:x:/s/NewbornInsurance/IQCX0sSHY-U9S43tSxRGLvrDAY5kou7UtKIqcQ9DxYXvt7M?e=4WTZ1g" target="_blank">
+        <div class="tracker-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        </div>
+        <div class="tracker-info">
+          <div class="tracker-name">Surrogacy Agency Tracker</div>
+          <div class="tracker-type">Excel · SharePoint</div>
+        </div>
+        <div class="tracker-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQDFSDblfa7LTYNfsUDnh7ATATVH8UNcMGn9LoKnOQxswAc?e=e4kCE7" target="_blank">
+        <div class="tracker-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        </div>
+        <div class="tracker-info">
+          <div class="tracker-name">Newborn Insurance Application Tracker — ART Risk</div>
+          <div class="tracker-type">Excel · SharePoint</div>
+        </div>
+        <div class="tracker-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQDlzL3bVb6vQ4kQ1aHyZ1NDAXB7F-F0xbrTpjiR5wXUVEA?e=IpgFvT" target="_blank">
+        <div class="tracker-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        </div>
+        <div class="tracker-info">
+          <div class="tracker-name">Newborn Insurance Application Tracker — IFI</div>
+          <div class="tracker-type">Excel · SharePoint</div>
+        </div>
+        <div class="tracker-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQAp28xMpsbWQIiCL_vhLc5QAfFN1kCIFSR3gO7FWMLZxv0?e=jrxip4" target="_blank">
+        <div class="tracker-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        </div>
+        <div class="tracker-info">
+          <div class="tracker-name">Surrogacy Claims Report — Convex</div>
+          <div class="tracker-type">Excel · SharePoint</div>
+        </div>
+        <div class="tracker-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQDgU1p3rAeJSITvBNzYCcrZAdsb0bIewdHi2dKCAm5FMxs?e=lPG1qG" target="_blank">
+        <div class="tracker-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        </div>
+        <div class="tracker-info">
+          <div class="tracker-name">Surrogacy Deal Tracker — 6 Degrees</div>
+          <div class="tracker-type">Excel · SharePoint</div>
+        </div>
+        <div class="tracker-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/r/personal/aaron_morganandfranz_com/_layouts/15/Doc.aspx?sourcedoc=%7Be0f64050-8b62-4c16-9ddd-b24dcf34809d%7D&amp;action=default&amp;CID=4b4165f0-e85d-42ca-8f5b-c80c127cbcc6&amp;_SRM=2%3AE%3A18" target="_blank">
+        <div class="tracker-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        </div>
+        <div class="tracker-info">
+          <div class="tracker-name">Surrogacy Tax Calculator</div>
+          <div class="tracker-type">Excel · SharePoint</div>
+        </div>
+        <div class="tracker-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+    </div>
 
     <p class="note">Each portal uses the same <strong>agency lookup</strong> and <strong>rate table</strong>, then routes to the selected broker&rsquo;s forms.</p>
   </main>
