@@ -3,57 +3,66 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Maverick Administrators — Internal Resource Hub</title>
-<meta name="description" content="Internal resource hub for Maverick Administrators portals, trackers, and reports." />
+<title>Maverick Ops — Internal Hub</title>
+<meta name="description" content="Internal operations hub for Maverick Administrators portals, trackers, and reports." />
 <meta name="robots" content="noindex, nofollow" />
 <link rel="icon" href="logo_maverick.png" type="image/png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --navy: #0d1f35;
-    --navy-mid: #162d4a;
-    --gold: #c8a96e;
-    --gold-soft: #d9bf91;
-    --cream: #f5f0e8;
-    --text: #0d1f35;
-    --muted: #6b7a8d;
-    --white: #ffffff;
-    --border: rgba(200, 169, 110, 0.28);
-    --border-strong: rgba(200, 169, 110, 0.55);
-    --shadow-sm: 0 1px 2px rgba(13, 31, 53, 0.04), 0 2px 8px rgba(13, 31, 53, 0.04);
-    --shadow-md: 0 4px 14px rgba(13, 31, 53, 0.08), 0 12px 32px rgba(13, 31, 53, 0.06);
-    --radius-lg: 14px;
-    --radius-md: 10px;
-    --radius-sm: 6px;
+    --ink: #0b1220;
+    --ink-2: #101a2e;
+    --ink-3: #16233c;
+    --panel: #ffffff;
+    --bg: #eef1f7;
+    --text: #1a2335;
+    --muted: #5d6b82;
+    --faint: #8d99ad;
+    --line: #dde3ee;
+    --brand-blue: #5d8fc0;
+    --green: #22c55e;
+
+    --c-ifi: #3b82f6;
+    --c-art: #14b8a6;
+    --c-whk: #8b5cf6;
+    --c-bb:  #f59e0b;
+
+    --radius-lg: 16px;
+    --radius-md: 11px;
+    --radius-sm: 7px;
+    --shadow-sm: 0 1px 2px rgba(11, 18, 32, 0.05), 0 2px 10px rgba(11, 18, 32, 0.05);
+    --shadow-md: 0 6px 18px rgba(11, 18, 32, 0.10), 0 18px 44px rgba(11, 18, 32, 0.10);
+
+    --font-ui: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-display: 'Space Grotesk', var(--font-ui);
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 
   body {
-    font-family: 'DM Sans', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-ui);
     color: var(--text);
-    background:
-      radial-gradient(1200px 600px at 50% -200px, rgba(22, 45, 74, 0.06), transparent 60%),
-      linear-gradient(180deg, var(--cream) 0%, #efe7da 100%);
+    background: var(--bg);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.5;
-    font-size: 16px;
+    font-size: 15px;
   }
 
-  a { color: var(--navy); }
+  ::selection { background: rgba(93, 143, 192, 0.3); }
 
-  /* Skip link for accessibility */
   .skip-link {
     position: absolute;
     left: -9999px;
     top: 8px;
-    background: var(--navy);
-    color: var(--white);
+    background: var(--ink);
+    color: #fff;
     padding: 10px 14px;
     border-radius: var(--radius-sm);
     font-weight: 600;
@@ -61,546 +70,978 @@
   }
   .skip-link:focus { left: 16px; }
 
-  /* Focus ring */
   :focus-visible {
-    outline: 3px solid var(--gold);
-    outline-offset: 3px;
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 2px;
     border-radius: var(--radius-sm);
   }
 
-  .page {
-    max-width: 1360px;
+  /* ============ Top bar ============ */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: linear-gradient(180deg, #0c1424 0%, #0b1220 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e7ecf5;
+  }
+
+  .topbar-inner {
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 48px 24px 80px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  /* Header */
-  .header {
-    text-align: center;
-    padding: 6px 4px 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
-  }
-
-  .brand-mark {
+    padding: 0 24px;
+    height: 62px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 28px;
   }
 
-  .brand-logo {
-    height: 48px;
-    width: auto;
-    max-width: min(360px, 78vw);
-    display: block;
+  .wordmark {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    text-decoration: none;
+    color: #fff;
+    flex-shrink: 0;
   }
+
+  .wordmark-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 19px;
+    letter-spacing: 0.04em;
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .wordmark-name .tri {
+    color: var(--brand-blue);
+    font-size: 13px;
+    margin: 0 1px;
+    transform: translateY(-1px);
+    display: inline-block;
+  }
+
+  .wordmark-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #0b1220;
+    background: var(--brand-blue);
+    padding: 3px 7px;
+    border-radius: 4px;
+  }
+
+  .topnav {
+    display: flex;
+    gap: 4px;
+    margin-right: auto;
+  }
+
+  .topnav a {
+    color: #9aa8bf;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 7px 12px;
+    border-radius: var(--radius-sm);
+    transition: color 140ms ease, background-color 140ms ease;
+  }
+
+  .topnav a:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .topbar-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .clock {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: #9aa8bf;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .clock time { color: #e7ecf5; font-weight: 500; }
 
   .internal-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: var(--navy);
-    color: var(--gold);
-    font-size: 11px;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    padding: 6px 12px;
+    color: #86efac;
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    padding: 5px 10px;
     border-radius: 999px;
-    border: 1px solid var(--border-strong);
+    white-space: nowrap;
   }
 
-  .internal-badge::before {
-    content: "";
-    display: inline-block;
+  .internal-badge .dot {
     width: 6px;
     height: 6px;
-    background: var(--gold);
     border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2.4s ease-in-out infinite;
   }
 
-  h1 {
-    font-family: 'DM Serif Display', Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(34px, 5.2vw, 52px);
-    line-height: 1.08;
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
+    55% { box-shadow: 0 0 0 5px rgba(34, 197, 94, 0); }
+  }
+
+  /* ============ Hero ============ */
+  .hero {
+    background:
+      radial-gradient(900px 420px at 18% -120px, rgba(93, 143, 192, 0.22), transparent 65%),
+      radial-gradient(700px 360px at 85% -80px, rgba(139, 92, 246, 0.12), transparent 60%),
+      linear-gradient(180deg, #0b1220 0%, #101a2e 78%, #16233c 100%);
+    color: #fff;
+    padding: 44px 24px 88px;
+    position: relative;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: linear-gradient(180deg, rgba(0,0,0,0.7), transparent 80%);
+    -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.7), transparent 80%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brand-blue);
+    margin: 0 0 12px;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(30px, 4.4vw, 46px);
+    line-height: 1.06;
+    letter-spacing: -0.015em;
+    margin: 0 0 10px;
+  }
+
+  .hero-sub {
     margin: 0;
-    color: var(--navy);
-    letter-spacing: -0.01em;
-    max-width: 22ch;
+    color: #9aa8bf;
+    font-size: 15.5px;
+    max-width: 58ch;
   }
 
-  .subtitle {
-    margin: 0;
-    color: var(--muted);
-    font-size: clamp(15px, 1.6vw, 17px);
-    max-width: 56ch;
-    line-height: 1.55;
+  .hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
   }
 
-  /* Card grid */
-  main {
+  .stat-chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 13px;
+    color: #c3cddd;
+    backdrop-filter: blur(4px);
+  }
+
+  .stat-chip strong {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 14px;
+    color: #fff;
+  }
+
+  /* ============ Command / search ============ */
+  .command {
+    max-width: 1280px;
+    margin: -54px auto 0;
+    padding: 0 24px;
+    position: relative;
+    z-index: 5;
+  }
+
+  .search-shell {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 18px;
+    height: 60px;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .search-shell:focus-within {
+    border-color: var(--brand-blue);
+    box-shadow: 0 0 0 4px rgba(93, 143, 192, 0.18), var(--shadow-md);
+  }
+
+  .search-shell svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--faint);
+    fill: none;
+    stroke-width: 2;
+    flex-shrink: 0;
+  }
+
+  #search {
+    flex: 1;
+    border: 0;
+    outline: none;
+    font-family: var(--font-ui);
+    font-size: 15.5px;
+    color: var(--text);
+    background: transparent;
+    min-width: 0;
+  }
+
+  #search::placeholder { color: var(--faint); }
+
+  .kbd-hint {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--faint);
+    border: 1px solid var(--line);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    padding: 2px 7px;
+    flex-shrink: 0;
+  }
+
+  /* ============ Layout ============ */
+  .page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 36px 24px 72px;
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 44px;
   }
 
-  .card-grid {
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 21px;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .section-count {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--muted);
+    background: #e3e9f4;
+    border-radius: 999px;
+    padding: 3px 9px;
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+    align-self: center;
+  }
+
+  /* ============ Portal cards ============ */
+  .portal-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 18px;
+    gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
-  @media (max-width: 1100px) {
-    .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
+  @media (max-width: 1080px) { .portal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 620px)  { .portal-grid { grid-template-columns: 1fr; } }
 
-  @media (max-width: 700px) {
-    .card-grid { grid-template-columns: 1fr; }
-  }
-
-  .card {
-    background: var(--white);
-    border: 1px solid var(--border);
+  .portal {
+    --accent: var(--brand-blue);
+    background: var(--panel);
+    border: 1px solid var(--line);
     border-radius: var(--radius-lg);
-    padding: 26px 22px 22px;
+    padding: 20px 20px 18px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     box-shadow: var(--shadow-sm);
-    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
     position: relative;
     overflow: hidden;
+    transition: transform 180ms cubic-bezier(0.2, 0.8, 0.3, 1.1), box-shadow 180ms ease, border-color 180ms ease;
   }
 
-  .card::before {
+  .portal::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-soft) 100%);
-    opacity: 0.85;
+    background: var(--accent);
+    transform: scaleX(0.32);
+    transform-origin: left;
+    transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  .card:hover,
-  .card:focus-within {
-    transform: translateY(-2px);
+  .portal:hover,
+  .portal:focus-within {
+    transform: translateY(-3px);
     box-shadow: var(--shadow-md);
-    border-color: var(--border-strong);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
   }
 
-  .card-eyebrow {
-    font-size: 11px;
+  .portal:hover::before,
+  .portal:focus-within::before { transform: scaleX(1); }
+
+  .portal-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .portal-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--accent);
   }
 
-  .card-title {
-    font-family: 'DM Serif Display', Georgia, serif;
-    font-weight: 400;
-    font-size: 28px;
-    line-height: 1.15;
-    color: var(--navy);
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #16a34a;
+  }
+
+  .status .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  .portal h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: var(--ink);
     margin: 0;
-    letter-spacing: -0.005em;
   }
 
-  .card-desc {
+  .portal-desc {
     color: var(--muted);
-    font-size: 15px;
+    font-size: 13.5px;
     line-height: 1.55;
     margin: 0;
     flex-grow: 1;
   }
 
-  .card-cta {
+  .portal-cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background: var(--navy);
-    color: var(--white);
-    font-family: inherit;
+    background: var(--ink);
+    color: #fff;
     font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 0.01em;
+    font-size: 14px;
     text-decoration: none;
-    padding: 14px 20px;
+    padding: 12px 16px;
     border-radius: var(--radius-md);
-    border: 1px solid var(--navy);
-    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
-    min-height: 48px;
-    width: 100%;
-    margin-top: 4px;
+    min-height: 44px;
+    transition: background-color 160ms ease, box-shadow 160ms ease;
   }
 
-  .card-cta:hover,
-  .card-cta:focus-visible {
-    background: var(--navy-mid);
-    border-color: var(--gold);
+  .portal-cta:hover,
+  .portal-cta:focus-visible {
+    background: var(--accent);
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 40%, transparent);
   }
 
-  .card-cta .arrow {
-    transition: transform 160ms ease;
-    display: inline-block;
+  .portal-cta .arrow { transition: transform 160ms ease; }
+  .portal-cta:hover .arrow,
+  .portal-cta:focus-visible .arrow { transform: translateX(3px); }
+
+  .portal-tracker {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 2px 0;
+    transition: color 140ms ease;
+    width: fit-content;
   }
 
-  .card-cta:hover .arrow,
-  .card-cta:focus-visible .arrow {
-    transform: translateX(3px);
+  .portal-tracker:hover,
+  .portal-tracker:focus-visible { color: var(--accent); }
+
+  .portal-tracker svg {
+    width: 13px;
+    height: 13px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
   }
 
-  .section-divider {
-    width: 100%;
-    margin: 48px 0 28px 0;
+  /* ============ Resource rows ============ */
+  .resource-group { margin-bottom: 22px; }
+  .resource-group:last-child { margin-bottom: 0; }
+
+  .group-label {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 0 0 8px 2px;
+  }
+
+  .resource-list {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .resource {
     display: flex;
     align-items: center;
-    gap: 16px;
-  }
-
-  .section-divider::before,
-  .section-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(200, 169, 110, 0.35);
-  }
-
-  .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 18px;
-    color: var(--navy);
-    white-space: nowrap;
-    letter-spacing: 0.02em;
-    margin: 0;
-  }
-
-  .trackers-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 14px;
-    width: 100%;
-  }
-
-  .tracker-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px 22px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
+    padding: 13px 18px;
     text-decoration: none;
     color: var(--text);
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 12px rgba(13, 31, 53, 0.05);
+    border-bottom: 1px solid var(--line);
+    transition: background-color 140ms ease, padding-left 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
   }
 
-  .tracker-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(13, 31, 53, 0.1);
-    border-color: var(--gold);
+  .resource:last-child { border-bottom: 0; }
+
+  .resource::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--accent, var(--brand-blue));
+    transform: scaleY(0);
+    transition: transform 180ms ease;
   }
 
-  .tracker-icon {
-    width: 38px;
-    height: 38px;
-    background: rgba(13, 31, 53, 0.06);
-    border-radius: 10px;
+  .resource:hover,
+  .resource:focus-visible {
+    background: #f6f8fc;
+    padding-left: 24px;
+  }
+
+  .resource:hover::before,
+  .resource:focus-visible::before { transform: scaleY(1); }
+
+  .resource-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: color-mix(in srgb, var(--accent, var(--brand-blue)) 12%, #fff);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
   }
 
-  .tracker-icon svg {
-    width: 18px;
-    height: 18px;
-    stroke: var(--navy);
+  .resource-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--accent, var(--brand-blue));
     fill: none;
     stroke-width: 2;
   }
 
-  .tracker-info {
+  .resource-name {
     flex: 1;
     min-width: 0;
-  }
-
-  .tracker-name {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
-    color: var(--navy);
-    line-height: 1.4;
-    margin-bottom: 2px;
+    color: var(--ink);
+    line-height: 1.35;
   }
 
-  .tracker-type {
-    font-size: 11px;
+  .resource-meta {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--faint);
+    flex-shrink: 0;
+  }
+
+  .resource-arrow {
+    color: var(--faint);
+    flex-shrink: 0;
+    display: flex;
+    transition: transform 160ms ease, color 160ms ease;
+  }
+
+  .resource-arrow svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  .resource:hover .resource-arrow {
+    transform: translateX(3px);
+    color: var(--accent, var(--brand-blue));
+  }
+
+  @media (max-width: 560px) {
+    .resource-meta { display: none; }
+  }
+
+  /* Search-filter states */
+  .hidden-by-search { display: none !important; }
+
+  .no-results {
+    display: none;
+    text-align: center;
     color: var(--muted);
+    font-size: 14.5px;
+    padding: 36px 20px;
+    background: var(--panel);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius-lg);
+  }
+
+  .no-results.show { display: block; }
+  .no-results strong { color: var(--ink); }
+
+  /* ============ Note + footer ============ */
+  .note {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #e9eef8;
+    border: 1px solid #d4ddef;
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    color: var(--muted);
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+
+  .note svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--brand-blue);
+    fill: none;
+    stroke-width: 2;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .note strong { color: var(--ink); font-weight: 600; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 22px 24px 28px;
+    text-align: center;
+    color: var(--faint);
+    font-size: 12.5px;
+    font-family: var(--font-mono);
     letter-spacing: 0.04em;
   }
 
-  .tracker-arrow {
-    color: var(--muted);
-    flex-shrink: 0;
-    transition: transform 0.2s;
+  footer .sep { margin: 0 10px; color: var(--brand-blue); }
+
+  /* ============ Entrance animation ============ */
+  @media (prefers-reduced-motion: no-preference) {
+    .rise {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: rise 520ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+    .rise:nth-child(1) { animation-delay: 40ms; }
+    .rise:nth-child(2) { animation-delay: 110ms; }
+    .rise:nth-child(3) { animation-delay: 180ms; }
+    .rise:nth-child(4) { animation-delay: 250ms; }
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
   }
 
-  .tracker-card:hover .tracker-arrow {
-    transform: translateX(3px);
-    color: var(--gold);
-  }
-
-  /* Note below cards */
-  .note {
-    text-align: center;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.6;
-    max-width: 64ch;
-    margin: 8px auto 0;
-    padding: 16px 20px;
-    border-top: 1px solid var(--border);
-  }
-
-  .note strong {
-    color: var(--navy);
-    font-weight: 600;
-  }
-
-  /* Footer */
-  footer {
-    margin-top: 24px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
-    letter-spacing: 0.02em;
-  }
-
-  footer .sep {
-    color: var(--gold);
-    margin: 0 8px;
-  }
-
-  @media (max-width: 600px) {
-    .page { padding: 32px 18px 56px; gap: 24px; }
-    .card { padding: 24px 20px 22px; }
-    .card-title { font-size: 24px; }
+  @media (max-width: 760px) {
+    .topnav, .clock { display: none; }
+    .hero { padding: 36px 18px 80px; }
+    .command, .page { padding-left: 18px; padding-right: 18px; }
   }
 </style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to portal selection</a>
+<a href="#portals" class="skip-link">Skip to portal selection</a>
 
-<div class="page">
-
-  <header class="header">
-    <div class="brand-mark">
-      <img src="logo_maverick.png" alt="Maverick Administrators" class="brand-logo" />
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="wordmark" href="#" aria-label="Maverick Administrators Ops Hub">
+      <span class="wordmark-name">M<span class="tri" aria-hidden="true">▲</span>VERICK</span>
+      <span class="wordmark-tag">Ops Hub</span>
+    </a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#portals">Portals</a>
+      <a href="#resources">Trackers &amp; Reports</a>
+    </nav>
+    <div class="topbar-meta">
+      <span class="clock"><time id="clock-time" datetime="">--:--:--</time><span id="clock-date"></span></span>
+      <span class="internal-badge"><span class="dot" aria-hidden="true"></span>Internal</span>
     </div>
-    <span class="internal-badge" aria-label="For internal use only">Internal Use</span>
-    <h1>Internal Resource Hub</h1>
-    <p class="subtitle">General Repository — Portals &amp; Trackers</p>
-  </header>
+  </div>
+</header>
 
-  <main id="main">
-    <ul class="card-grid" role="list">
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Maverick Administrators · Surrogacy Insurance TPA</p>
+    <h1 id="greeting">Operations Hub</h1>
+    <p class="hero-sub">Every broker portal, tracker, and report in one place. All portals share the same agency lookup and rate table, then route to the selected broker&rsquo;s forms.</p>
+    <div class="hero-stats">
+      <span class="stat-chip"><strong>4</strong> broker portals</span>
+      <span class="stat-chip"><strong>9</strong> trackers &amp; reports</span>
+      <span class="stat-chip"><strong>2</strong> application paths — Singleton &amp; Split Embryo</span>
+    </div>
+  </div>
+</section>
 
-      <li>
-        <article class="card" aria-labelledby="card-ifi-title">
-          <span class="card-eyebrow">Broker</span>
-          <h2 class="card-title" id="card-ifi-title">IFI</h2>
-          <p class="card-desc">Dedicated Singleton and Split Embryo application routing for IFI-bound submissions.</p>
-          <a class="card-cta" href="https://maverickadministrators.github.io/maverick-form-portal/" aria-label="Open IFI Portal">
-            <span>Open IFI Portal</span>
+<div class="command">
+  <div class="search-shell">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <input id="search" type="search" placeholder="Search portals, trackers, and reports…" autocomplete="off" aria-label="Filter portals, trackers, and reports" />
+    <span class="kbd-hint" aria-hidden="true">/</span>
+  </div>
+</div>
+
+<main class="page" id="main">
+
+  <section id="portals" aria-labelledby="portals-title">
+    <div class="section-head">
+      <h2 id="portals-title">Broker Portals</h2>
+      <span class="section-count" id="portal-count">4</span>
+      <span class="section-rule" aria-hidden="true"></span>
+    </div>
+
+    <ul class="portal-grid" role="list">
+
+      <li class="rise" data-search="ifi broker portal singleton split embryo">
+        <article class="portal" style="--accent: var(--c-ifi)" aria-labelledby="card-ifi-title">
+          <div class="portal-top">
+            <span class="portal-eyebrow">Broker</span>
+            <span class="status"><span class="dot" aria-hidden="true"></span>Live</span>
+          </div>
+          <h3 id="card-ifi-title">IFI</h3>
+          <p class="portal-desc">Singleton and Split Embryo application routing for IFI-bound submissions.</p>
+          <a class="portal-cta" href="https://maverickadministrators.github.io/maverick-form-portal/" aria-label="Open IFI Portal">
+            <span>Launch portal</span>
             <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="portal-tracker" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQDlzL3bVb6vQ4kQ1aHyZ1NDAXB7F-F0xbrTpjiR5wXUVEA?e=IpgFvT" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
+            Application tracker
           </a>
         </article>
       </li>
 
-      <li>
-        <article class="card" aria-labelledby="card-art-title">
-          <span class="card-eyebrow">Broker</span>
-          <h2 class="card-title" id="card-art-title">ART Risk</h2>
-          <p class="card-desc">Dedicated Singleton and Split Embryo application routing for ART Risk-bound submissions.</p>
-          <a class="card-cta" href="https://maverickadministrators.github.io/maverick-form-portal-art/" aria-label="Open ART Risk Portal">
-            <span>Open ART Risk Portal</span>
+      <li class="rise" data-search="art risk broker portal singleton split embryo">
+        <article class="portal" style="--accent: var(--c-art)" aria-labelledby="card-art-title">
+          <div class="portal-top">
+            <span class="portal-eyebrow">Broker</span>
+            <span class="status"><span class="dot" aria-hidden="true"></span>Live</span>
+          </div>
+          <h3 id="card-art-title">ART Risk</h3>
+          <p class="portal-desc">Singleton and Split Embryo application routing for ART Risk-bound submissions.</p>
+          <a class="portal-cta" href="https://maverickadministrators.github.io/maverick-form-portal-art/" aria-label="Open ART Risk Portal">
+            <span>Launch portal</span>
             <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="portal-tracker" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQDFSDblfa7LTYNfsUDnh7ATATVH8UNcMGn9LoKnOQxswAc?e=e4kCE7" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
+            Application tracker
           </a>
         </article>
       </li>
 
-      <li>
-        <article class="card" aria-labelledby="card-whillock-title">
-          <span class="card-eyebrow">Broker</span>
-          <h2 class="card-title" id="card-whillock-title">Whillock</h2>
-          <p class="card-desc">Dedicated Singleton and Split Embryo application routing for Whillock-bound submissions.</p>
-          <a class="card-cta" href="https://maverickadministrators.github.io/maverick-form-portal-whillock/" aria-label="Open Whillock Portal">
-            <span>Open Whillock Portal</span>
+      <li class="rise" data-search="whillock broker portal singleton split embryo">
+        <article class="portal" style="--accent: var(--c-whk)" aria-labelledby="card-whillock-title">
+          <div class="portal-top">
+            <span class="portal-eyebrow">Broker</span>
+            <span class="status"><span class="dot" aria-hidden="true"></span>Live</span>
+          </div>
+          <h3 id="card-whillock-title">Whillock</h3>
+          <p class="portal-desc">Singleton and Split Embryo application routing for Whillock-bound submissions.</p>
+          <a class="portal-cta" href="https://maverickadministrators.github.io/maverick-form-portal-whillock/" aria-label="Open Whillock Portal">
+            <span>Launch portal</span>
             <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="portal-tracker" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQBYcnvZexYJS6jf1fxBR0O5AS1rFBaf8VGhZARA096YBE4?e=Dm57SE&amp;wdExp=TEAMS-TREATMENT&amp;web=1&amp;TeamsCID=44741e83-86db-4f9a-92a6-e8b603321094&amp;linkOpenTime=1780335564220" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
+            Application tracker
           </a>
         </article>
       </li>
 
-      <li>
-        <article class="card" aria-labelledby="card-bb-title">
-          <span class="card-eyebrow">Broker</span>
-          <h2 class="card-title" id="card-bb-title">Brown &amp; Brown</h2>
-          <p class="card-desc">Dedicated Singleton and Split Embryo application routing for Brown &amp; Brown-bound submissions.</p>
-          <a class="card-cta" href="https://maverickadministrators.github.io/maverick-form-portal-bb/" target="_blank" aria-label="Open Brown & Brown Portal">
-            <span>Open B&amp;B Portal</span>
+      <li class="rise" data-search="brown and brown b&b bb broker portal singleton split embryo">
+        <article class="portal" style="--accent: var(--c-bb)" aria-labelledby="card-bb-title">
+          <div class="portal-top">
+            <span class="portal-eyebrow">Broker</span>
+            <span class="status"><span class="dot" aria-hidden="true"></span>Live</span>
+          </div>
+          <h3 id="card-bb-title">Brown &amp; Brown</h3>
+          <p class="portal-desc">Singleton and Split Embryo application routing for Brown &amp; Brown-bound submissions.</p>
+          <a class="portal-cta" href="https://maverickadministrators.github.io/maverick-form-portal-bb/" target="_blank" rel="noopener" aria-label="Open Brown & Brown Portal">
+            <span>Launch portal</span>
             <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="portal-tracker" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQC0Oyy0GaJLQY8WWLoR2sJMAZXARkW1jgFuLo7VMcmLJmo?rtime=M_GhoizA3kg" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
+            Application tracker
           </a>
         </article>
       </li>
 
     </ul>
+  </section>
 
-    <div class="section-divider">
-      <h2 class="section-title">Trackers &amp; Reports</h2>
+  <section id="resources" aria-labelledby="resources-title">
+    <div class="section-head">
+      <h2 id="resources-title">Trackers &amp; Reports</h2>
+      <span class="section-count" id="resource-count">9</span>
+      <span class="section-rule" aria-hidden="true"></span>
     </div>
 
-    <div class="trackers-grid">
+    <div class="resource-group" data-group>
+      <p class="group-label">Policy &amp; Agency</p>
+      <div class="resource-list">
 
-      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQC7qnSLYjqwQ6Hbes_pJ1uYAfMhxeAfGJ6SbjgHXDWcfYY?e=ux6AVD" target="_blank">
-        <div class="tracker-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-        </div>
-        <div class="tracker-info">
-          <div class="tracker-name">Newborn Insurance Policy Tracker</div>
-          <div class="tracker-type">Excel · SharePoint</div>
-        </div>
-        <div class="tracker-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </a>
+        <a class="resource" data-search="newborn insurance policy tracker excel sharepoint" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQC7qnSLYjqwQ6Hbes_pJ1uYAfMhxeAfGJ6SbjgHXDWcfYY?e=ux6AVD" target="_blank" rel="noopener">
+          <span class="resource-icon"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></span>
+          <span class="resource-name">Newborn Insurance Policy Tracker</span>
+          <span class="resource-meta">XLSX · SHAREPOINT</span>
+          <span class="resource-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
 
-      <a class="tracker-card" href="https://morganandfranz.sharepoint.com/:x:/s/NewbornInsurance/IQCX0sSHY-U9S43tSxRGLvrDAY5kou7UtKIqcQ9DxYXvt7M?e=4WTZ1g" target="_blank">
-        <div class="tracker-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-        </div>
-        <div class="tracker-info">
-          <div class="tracker-name">Surrogacy Agency Tracker</div>
-          <div class="tracker-type">Excel · SharePoint</div>
-        </div>
-        <div class="tracker-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </a>
+        <a class="resource" data-search="surrogacy agency tracker excel sharepoint" href="https://morganandfranz.sharepoint.com/:x:/s/NewbornInsurance/IQCX0sSHY-U9S43tSxRGLvrDAY5kou7UtKIqcQ9DxYXvt7M?e=4WTZ1g" target="_blank" rel="noopener">
+          <span class="resource-icon"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><line x1="9" y1="10" x2="9" y2="10.01"/><line x1="15" y1="10" x2="15" y2="10.01"/><line x1="9" y1="14" x2="9" y2="14.01"/><line x1="15" y1="14" x2="15" y2="14.01"/></svg></span>
+          <span class="resource-name">Surrogacy Agency Tracker</span>
+          <span class="resource-meta">XLSX · SHAREPOINT</span>
+          <span class="resource-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
 
-      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQDFSDblfa7LTYNfsUDnh7ATATVH8UNcMGn9LoKnOQxswAc?e=e4kCE7" target="_blank">
-        <div class="tracker-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-        </div>
-        <div class="tracker-info">
-          <div class="tracker-name">Newborn Insurance Application Tracker — ART Risk</div>
-          <div class="tracker-type">Excel · SharePoint</div>
-        </div>
-        <div class="tracker-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </a>
-
-      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQDlzL3bVb6vQ4kQ1aHyZ1NDAXB7F-F0xbrTpjiR5wXUVEA?e=IpgFvT" target="_blank">
-        <div class="tracker-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-        </div>
-        <div class="tracker-info">
-          <div class="tracker-name">Newborn Insurance Application Tracker — IFI</div>
-          <div class="tracker-type">Excel · SharePoint</div>
-        </div>
-        <div class="tracker-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </a>
-
-      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQBYcnvZexYJS6jf1fxBR0O5AS1rFBaf8VGhZARA096YBE4?e=Dm57SE&amp;wdExp=TEAMS-TREATMENT&amp;web=1&amp;TeamsCID=44741e83-86db-4f9a-92a6-e8b603321094&amp;linkOpenTime=1780335564220" target="_blank">
-        <div class="tracker-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-        </div>
-        <div class="tracker-info">
-          <div class="tracker-name">Newborn Insurance Application Tracker - Whillock</div>
-          <div class="tracker-type">Excel · SharePoint</div>
-        </div>
-        <div class="tracker-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </a>
-
-      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQAp28xMpsbWQIiCL_vhLc5QAfFN1kCIFSR3gO7FWMLZxv0?e=jrxip4" target="_blank">
-        <div class="tracker-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-        </div>
-        <div class="tracker-info">
-          <div class="tracker-name">Surrogacy Claims Report — Convex</div>
-          <div class="tracker-type">Excel · SharePoint</div>
-        </div>
-        <div class="tracker-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </a>
-
-      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQDgU1p3rAeJSITvBNzYCcrZAdsb0bIewdHi2dKCAm5FMxs?e=lPG1qG" target="_blank">
-        <div class="tracker-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-        </div>
-        <div class="tracker-info">
-          <div class="tracker-name">Surrogacy Deal Tracker — 6 Degrees</div>
-          <div class="tracker-type">Excel · SharePoint</div>
-        </div>
-        <div class="tracker-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </a>
-
-      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/r/personal/aaron_morganandfranz_com/_layouts/15/Doc.aspx?sourcedoc=%7Be0f64050-8b62-4c16-9ddd-b24dcf34809d%7D&amp;action=default&amp;CID=4b4165f0-e85d-42ca-8f5b-c80c127cbcc6&amp;_SRM=2%3AE%3A18" target="_blank">
-        <div class="tracker-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-        </div>
-        <div class="tracker-info">
-          <div class="tracker-name">Surrogacy Tax Calculator</div>
-          <div class="tracker-type">Excel · SharePoint</div>
-        </div>
-        <div class="tracker-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </a>
-
-      <a class="tracker-card" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQC0Oyy0GaJLQY8WWLoR2sJMAZXARkW1jgFuLo7VMcmLJmo?rtime=M_GhoizA3kg" target="_blank">
-        <div class="tracker-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-        </div>
-        <div class="tracker-info">
-          <div class="tracker-name">Newborn Insurance Application Tracker — Brown &amp; Brown</div>
-          <div class="tracker-type">Excel · SharePoint</div>
-        </div>
-        <div class="tracker-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </div>
-      </a>
-
+      </div>
     </div>
 
-    <p class="note">Each portal uses the same <strong>agency lookup</strong> and <strong>rate table</strong>, then routes to the selected broker&rsquo;s forms.</p>
-  </main>
+    <div class="resource-group" data-group>
+      <p class="group-label">Application Trackers — by Broker</p>
+      <div class="resource-list">
 
-  <footer>
-    <span>Maverick Administrators</span>
-    <span class="sep" aria-hidden="true">·</span>
-    <span>Internal portal directory</span>
-  </footer>
+        <a class="resource" style="--accent: var(--c-ifi)" data-search="newborn insurance application tracker ifi excel sharepoint" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQDlzL3bVb6vQ4kQ1aHyZ1NDAXB7F-F0xbrTpjiR5wXUVEA?e=IpgFvT" target="_blank" rel="noopener">
+          <span class="resource-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg></span>
+          <span class="resource-name">Newborn Insurance Application Tracker — IFI</span>
+          <span class="resource-meta">XLSX · SHAREPOINT</span>
+          <span class="resource-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
 
-</div>
+        <a class="resource" style="--accent: var(--c-art)" data-search="newborn insurance application tracker art risk excel sharepoint" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQDFSDblfa7LTYNfsUDnh7ATATVH8UNcMGn9LoKnOQxswAc?e=e4kCE7" target="_blank" rel="noopener">
+          <span class="resource-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg></span>
+          <span class="resource-name">Newborn Insurance Application Tracker — ART Risk</span>
+          <span class="resource-meta">XLSX · SHAREPOINT</span>
+          <span class="resource-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
+
+        <a class="resource" style="--accent: var(--c-whk)" data-search="newborn insurance application tracker whillock excel sharepoint" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQBYcnvZexYJS6jf1fxBR0O5AS1rFBaf8VGhZARA096YBE4?e=Dm57SE&amp;wdExp=TEAMS-TREATMENT&amp;web=1&amp;TeamsCID=44741e83-86db-4f9a-92a6-e8b603321094&amp;linkOpenTime=1780335564220" target="_blank" rel="noopener">
+          <span class="resource-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg></span>
+          <span class="resource-name">Newborn Insurance Application Tracker — Whillock</span>
+          <span class="resource-meta">XLSX · SHAREPOINT</span>
+          <span class="resource-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
+
+        <a class="resource" style="--accent: var(--c-bb)" data-search="newborn insurance application tracker brown and brown b&b bb excel sharepoint" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQC0Oyy0GaJLQY8WWLoR2sJMAZXARkW1jgFuLo7VMcmLJmo?rtime=M_GhoizA3kg" target="_blank" rel="noopener">
+          <span class="resource-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg></span>
+          <span class="resource-name">Newborn Insurance Application Tracker — Brown &amp; Brown</span>
+          <span class="resource-meta">XLSX · SHAREPOINT</span>
+          <span class="resource-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="resource-group" data-group>
+      <p class="group-label">Reports &amp; Tools</p>
+      <div class="resource-list">
+
+        <a class="resource" data-search="surrogacy claims report convex excel sharepoint" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQAp28xMpsbWQIiCL_vhLc5QAfFN1kCIFSR3gO7FWMLZxv0?e=jrxip4" target="_blank" rel="noopener">
+          <span class="resource-icon"><svg viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="20"/><line x1="7" y1="20" x2="7" y2="12"/><line x1="12" y1="20" x2="12" y2="7"/><line x1="17" y1="20" x2="17" y2="10"/></svg></span>
+          <span class="resource-name">Surrogacy Claims Report — Convex</span>
+          <span class="resource-meta">XLSX · SHAREPOINT</span>
+          <span class="resource-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
+
+        <a class="resource" data-search="surrogacy deal tracker 6 degrees six excel sharepoint" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQDgU1p3rAeJSITvBNzYCcrZAdsb0bIewdHi2dKCAm5FMxs?e=lPG1qG" target="_blank" rel="noopener">
+          <span class="resource-icon"><svg viewBox="0 0 24 24"><polyline points="4 14 9 9 13 13 20 6"/><polyline points="14 6 20 6 20 12"/></svg></span>
+          <span class="resource-name">Surrogacy Deal Tracker — 6 Degrees</span>
+          <span class="resource-meta">XLSX · SHAREPOINT</span>
+          <span class="resource-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
+
+        <a class="resource" data-search="surrogacy tax calculator excel sharepoint" href="https://morganandfranz-my.sharepoint.com/:x:/r/personal/aaron_morganandfranz_com/_layouts/15/Doc.aspx?sourcedoc=%7Be0f64050-8b62-4c16-9ddd-b24dcf34809d%7D&amp;action=default&amp;CID=4b4165f0-e85d-42ca-8f5b-c80c127cbcc6&amp;_SRM=2%3AE%3A18" target="_blank" rel="noopener">
+          <span class="resource-icon"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="13" x2="9" y2="13.01"/><line x1="12" y1="13" x2="12" y2="13.01"/><line x1="15" y1="13" x2="15" y2="13.01"/><line x1="9" y1="17" x2="9" y2="17.01"/><line x1="12" y1="17" x2="12" y2="17.01"/><line x1="15" y1="17" x2="15" y2="17.01"/></svg></span>
+          <span class="resource-name">Surrogacy Tax Calculator</span>
+          <span class="resource-meta">XLSX · SHAREPOINT</span>
+          <span class="resource-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a>
+
+      </div>
+    </div>
+
+    <p class="no-results" id="no-results" role="status">No matches for &ldquo;<strong id="no-results-term"></strong>&rdquo; — try a broker name or tracker keyword.</p>
+  </section>
+
+  <p class="note">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><line x1="12" y1="8" x2="12" y2="8.01"/></svg>
+    <span>Each portal uses the same <strong>agency lookup</strong> and <strong>rate table</strong>, then routes to the selected broker&rsquo;s forms.</span>
+  </p>
+
+</main>
+
+<footer>
+  <span>Maverick Administrators</span>
+  <span class="sep" aria-hidden="true">▲</span>
+  <span>Internal portal directory</span>
+</footer>
+
+<script>
+  // Live clock
+  (function () {
+    var timeEl = document.getElementById('clock-time');
+    var dateEl = document.getElementById('clock-date');
+    function tick() {
+      var now = new Date();
+      timeEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      timeEl.setAttribute('datetime', now.toISOString());
+      dateEl.textContent = now.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  // Time-of-day greeting
+  (function () {
+    var h = new Date().getHours();
+    var part = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
+    document.getElementById('greeting').textContent = 'Good ' + part + '. Where to?';
+  })();
+
+  // Search filter — "/" focuses, Escape clears
+  (function () {
+    var input = document.getElementById('search');
+    var items = Array.prototype.slice.call(document.querySelectorAll('[data-search]'));
+    var groups = Array.prototype.slice.call(document.querySelectorAll('[data-group]'));
+    var portalCount = document.getElementById('portal-count');
+    var resourceCount = document.getElementById('resource-count');
+    var noResults = document.getElementById('no-results');
+    var noResultsTerm = document.getElementById('no-results-term');
+
+    function apply() {
+      var q = input.value.trim().toLowerCase();
+      var portalsShown = 0, resourcesShown = 0;
+
+      items.forEach(function (el) {
+        var haystack = (el.getAttribute('data-search') + ' ' + el.textContent).toLowerCase();
+        var show = !q || haystack.indexOf(q) !== -1;
+        el.classList.toggle('hidden-by-search', !show);
+        if (show) {
+          if (el.classList.contains('resource')) resourcesShown++;
+          else portalsShown++;
+        }
+      });
+
+      groups.forEach(function (g) {
+        var any = g.querySelectorAll('.resource:not(.hidden-by-search)').length > 0;
+        g.classList.toggle('hidden-by-search', !any);
+      });
+
+      portalCount.textContent = portalsShown;
+      resourceCount.textContent = resourcesShown;
+      noResultsTerm.textContent = input.value.trim();
+      noResults.classList.toggle('show', !!q && portalsShown + resourcesShown === 0);
+    }
+
+    input.addEventListener('input', apply);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { input.value = ''; apply(); input.blur(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === '/' && document.activeElement !== input &&
+          !/^(input|textarea|select)$/i.test(document.activeElement.tagName)) {
+        e.preventDefault();
+        input.focus();
+      }
+    });
+  })();
+</script>
 </body>
 </html>
