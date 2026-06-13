@@ -12,9 +12,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --ink: #0b1220;
-    --ink-2: #101a2e;
-    --ink-3: #16233c;
+    --ink: #0a1322;
+    --ink-2: #0f1b30;
+    --ink-3: #16243d;
     --panel: #ffffff;
     --bg: #eef1f7;
     --text: #1a2335;
@@ -22,6 +22,9 @@
     --faint: #8d99ad;
     --line: #dde3ee;
     --brand-blue: #5d8fc0;
+    --gold: #c8a96e;
+    --gold-bright: #e3c98f;
+    --gold-deep: #a98b52;
     --green: #22c55e;
 
     --c-ifi: #3b82f6;
@@ -32,8 +35,8 @@
     --radius-lg: 16px;
     --radius-md: 11px;
     --radius-sm: 7px;
-    --shadow-sm: 0 1px 2px rgba(11, 18, 32, 0.05), 0 2px 10px rgba(11, 18, 32, 0.05);
-    --shadow-md: 0 6px 18px rgba(11, 18, 32, 0.10), 0 18px 44px rgba(11, 18, 32, 0.10);
+    --shadow-sm: 0 1px 2px rgba(10, 19, 34, 0.05), 0 2px 10px rgba(10, 19, 34, 0.05);
+    --shadow-md: 0 6px 18px rgba(10, 19, 34, 0.10), 0 18px 44px rgba(10, 19, 34, 0.10);
 
     --font-ui: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-display: 'Space Grotesk', var(--font-ui);
@@ -42,7 +45,7 @@
 
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 
   body {
     font-family: var(--font-ui);
@@ -55,7 +58,16 @@
     font-size: 15px;
   }
 
-  ::selection { background: rgba(93, 143, 192, 0.3); }
+  ::selection { background: rgba(200, 169, 110, 0.35); }
+
+  /* One container to rule every section — keeps hero, portals,
+     trackers, and footer on the same vertical grid. */
+  .shell {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
 
   .skip-link {
     position: absolute;
@@ -71,9 +83,22 @@
   .skip-link:focus { left: 16px; }
 
   :focus-visible {
-    outline: 2px solid var(--brand-blue);
+    outline: 2px solid var(--gold);
     outline-offset: 2px;
     border-radius: var(--radius-sm);
+  }
+
+  /* ============ Scroll progress ============ */
+  #progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: linear-gradient(90deg, var(--gold-deep), var(--gold-bright));
+    box-shadow: 0 0 12px rgba(200, 169, 110, 0.65);
+    z-index: 60;
+    pointer-events: none;
   }
 
   /* ============ Top bar ============ */
@@ -81,57 +106,81 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: linear-gradient(180deg, #0c1424 0%, #0b1220 100%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(10, 19, 34, 0.78);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border-bottom: 1px solid rgba(200, 169, 110, 0.22);
+    box-shadow: 0 10px 30px rgba(10, 19, 34, 0.25);
     color: #e7ecf5;
   }
 
   .topbar-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 24px;
-    height: 62px;
+    height: 84px;
     display: flex;
     align-items: center;
     gap: 28px;
   }
 
-  .wordmark {
+  .brand {
     display: flex;
-    align-items: baseline;
-    gap: 10px;
+    align-items: center;
+    gap: 14px;
     text-decoration: none;
-    color: #fff;
     flex-shrink: 0;
   }
 
-  .wordmark-name {
+  .brand-plate {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(180deg, #fefdfb 0%, #f4efe5 100%);
+    border: 1px solid rgba(200, 169, 110, 0.65);
+    border-radius: 12px;
+    padding: 10px 18px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.9) inset,
+      0 4px 14px rgba(0, 0, 0, 0.4),
+      0 0 0 4px rgba(200, 169, 110, 0.12);
+    transition: box-shadow 200ms ease, transform 200ms ease;
+  }
+
+  .brand:hover .brand-plate {
+    transform: translateY(-1px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.9) inset,
+      0 6px 18px rgba(0, 0, 0, 0.45),
+      0 0 0 4px rgba(200, 169, 110, 0.22);
+  }
+
+  .brand-plate img {
+    height: 32px;
+    width: auto;
+    display: block;
+  }
+
+  .brand-sub {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .brand-sub .ops {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 19px;
-    letter-spacing: 0.04em;
-    display: inline-flex;
-    align-items: baseline;
-  }
-
-  .wordmark-name .tri {
-    color: var(--brand-blue);
-    font-size: 13px;
-    margin: 0 1px;
-    transform: translateY(-1px);
-    display: inline-block;
-  }
-
-  .wordmark-tag {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
+    font-size: 15px;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: #0b1220;
-    background: var(--brand-blue);
-    padding: 3px 7px;
-    border-radius: 4px;
+    color: var(--gold-bright);
+    line-height: 1;
+  }
+
+  .brand-sub .tpa {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8d99ad;
+    line-height: 1;
   }
 
   .topnav {
@@ -145,15 +194,17 @@
     text-decoration: none;
     font-size: 13.5px;
     font-weight: 500;
-    padding: 7px 12px;
+    padding: 8px 13px;
     border-radius: var(--radius-sm);
-    transition: color 140ms ease, background-color 140ms ease;
+    transition: color 140ms ease, background-color 140ms ease, transform 120ms ease;
   }
 
   .topnav a:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.07);
+    color: var(--gold-bright);
+    background: rgba(200, 169, 110, 0.1);
   }
+
+  .topnav a:active { transform: scale(0.95); }
 
   .topbar-meta {
     display: flex;
@@ -169,9 +220,14 @@
     display: flex;
     align-items: baseline;
     gap: 10px;
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 6px 13px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
   }
 
-  .clock time { color: #e7ecf5; font-weight: 500; }
+  .clock time { color: var(--gold-bright); font-weight: 600; }
 
   .internal-badge {
     display: inline-flex;
@@ -205,77 +261,217 @@
 
   /* ============ Hero ============ */
   .hero {
-    background:
-      radial-gradient(900px 420px at 18% -120px, rgba(93, 143, 192, 0.22), transparent 65%),
-      radial-gradient(700px 360px at 85% -80px, rgba(139, 92, 246, 0.12), transparent 60%),
-      linear-gradient(180deg, #0b1220 0%, #101a2e 78%, #16233c 100%);
+    background: linear-gradient(165deg, #0a1322 0%, #0f1b30 55%, #16243d 100%);
     color: #fff;
-    padding: 44px 24px 88px;
+    padding: 64px 0 150px;
     position: relative;
+    overflow: hidden;
   }
 
-  .hero::after {
+  /* wave divider easing navy into the content background */
+  .hero-wave {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    line-height: 0;
+    pointer-events: none;
+  }
+
+  .hero-wave svg {
+    width: 100%;
+    height: 84px;
+    display: block;
+  }
+
+  /* drifting aurora blobs */
+  .hero .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    pointer-events: none;
+  }
+
+  .blob-gold {
+    width: 560px;
+    height: 560px;
+    top: -260px;
+    left: -120px;
+    background: radial-gradient(circle, rgba(200, 169, 110, 0.34) 0%, transparent 65%);
+  }
+
+  .blob-blue {
+    width: 640px;
+    height: 640px;
+    top: -180px;
+    right: -160px;
+    background: radial-gradient(circle, rgba(93, 143, 192, 0.32) 0%, transparent 65%);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .blob-gold { animation: drift-a 16s ease-in-out infinite alternate; }
+    .blob-blue { animation: drift-b 20s ease-in-out infinite alternate; }
+    @keyframes drift-a {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(150px, 70px) scale(1.15); }
+    }
+    @keyframes drift-b {
+      from { transform: translate(0, 0) scale(1.1); }
+      to   { transform: translate(-130px, 50px) scale(0.95); }
+    }
+  }
+
+  /* drifting gold constellation */
+  .constellation {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cg-1 { animation: c-drift-a 38s ease-in-out infinite alternate; }
+    .cg-2 { animation: c-drift-b 46s ease-in-out infinite alternate; }
+    @keyframes c-drift-a {
+      from { transform: translate(0, 0); opacity: 0.75; }
+      50%  { opacity: 1; }
+      to   { transform: translate(34px, -18px); opacity: 0.75; }
+    }
+    @keyframes c-drift-b {
+      from { transform: translate(0, 0); opacity: 0.9; }
+      50%  { opacity: 0.6; }
+      to   { transform: translate(-30px, 14px); opacity: 0.9; }
+    }
+  }
+
+  /* cinematic load reveal */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: rise 680ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+    .reveal.r-2 { animation-delay: 130ms; }
+    .reveal.r-3 { animation-delay: 260ms; }
+    .reveal.r-4 { animation-delay: 400ms; }
+    .reveal.r-5 { animation-delay: 540ms; }
+  }
+
+  .caret {
+    display: inline-block;
+    width: 3px;
+    height: 0.82em;
+    background: var(--gold-bright);
+    margin-left: 5px;
+    vertical-align: -0.05em;
+    animation: blink 0.9s step-end infinite;
+  }
+
+  .caret.done { opacity: 0; transition: opacity 400ms ease; }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* blueprint grid texture */
+  .hero::before {
     content: "";
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
     background-size: 44px 44px;
-    mask-image: linear-gradient(180deg, rgba(0,0,0,0.7), transparent 80%);
-    -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.7), transparent 80%);
+    mask-image: linear-gradient(180deg, rgba(0,0,0,0.8), transparent 85%);
+    -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.8), transparent 85%);
     pointer-events: none;
   }
 
-  .hero-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
+  /* brand triangle watermark */
+  .hero::after {
+    content: "";
+    position: absolute;
+    right: 4%;
+    bottom: -110px;
+    width: 420px;
+    height: 380px;
+    background: linear-gradient(180deg, rgba(200, 169, 110, 0.13), rgba(93, 143, 192, 0.05));
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    pointer-events: none;
   }
 
+  .hero-inner { position: relative; z-index: 1; }
+
   .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
     font-family: var(--font-mono);
     font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: var(--brand-blue);
-    margin: 0 0 12px;
+    color: var(--gold-bright);
+    margin: 0 0 18px;
+  }
+
+  .hero-eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
   }
 
   .hero h1 {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(30px, 4.4vw, 46px);
-    line-height: 1.06;
-    letter-spacing: -0.015em;
-    margin: 0 0 10px;
+    font-size: clamp(38px, 5.6vw, 64px);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px;
+  }
+
+  .hero h1 .accent {
+    background: linear-gradient(100deg, var(--gold-deep) 0%, var(--gold) 32%, #f6e7c4 50%, var(--gold) 68%, var(--gold-deep) 100%);
+    background-size: 220% 100%;
+    background-position: 0% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero h1 .accent { animation: shimmer 6s ease-in-out 1.4s infinite; }
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 0; }
+      50% { background-position: 100% 0; }
+    }
   }
 
   .hero-sub {
     margin: 0;
-    color: #9aa8bf;
-    font-size: 15.5px;
+    color: #aab6c9;
+    font-size: 16.5px;
+    line-height: 1.6;
     max-width: 58ch;
   }
 
   .hero-stats {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 22px;
+    gap: 12px;
+    margin-top: 30px;
   }
 
   .stat-chip {
     display: inline-flex;
     align-items: baseline;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 9px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(200, 169, 110, 0.28);
     border-radius: 999px;
-    padding: 7px 14px;
-    font-size: 13px;
+    padding: 9px 18px;
+    font-size: 13.5px;
     color: #c3cddd;
     backdrop-filter: blur(4px);
   }
@@ -283,41 +479,47 @@
   .stat-chip strong {
     font-family: var(--font-mono);
     font-weight: 600;
-    font-size: 14px;
-    color: #fff;
+    font-size: 17px;
+    color: var(--gold-bright);
   }
 
-  /* ============ Command / search ============ */
+  /* ============ Command / search — hero centerpiece ============ */
   .command {
-    max-width: 1280px;
-    margin: -54px auto 0;
-    padding: 0 24px;
+    margin-top: 38px;
+    max-width: 860px;
     position: relative;
-    z-index: 5;
+    z-index: 3;
   }
 
   .search-shell {
-    background: var(--panel);
-    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(200, 169, 110, 0.32);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(255, 255, 255, 0.08) inset;
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 0 18px;
-    height: 60px;
-    transition: border-color 160ms ease, box-shadow 160ms ease;
+    padding: 0 20px;
+    height: 62px;
+    transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
   }
 
   .search-shell:focus-within {
-    border-color: var(--brand-blue);
-    box-shadow: 0 0 0 4px rgba(93, 143, 192, 0.18), var(--shadow-md);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--gold);
+    box-shadow:
+      0 0 0 4px rgba(200, 169, 110, 0.22),
+      0 0 36px rgba(200, 169, 110, 0.3),
+      0 14px 40px rgba(0, 0, 0, 0.35),
+      0 1px 0 rgba(255, 255, 255, 0.1) inset;
   }
 
   .search-shell svg {
     width: 18px;
     height: 18px;
-    stroke: var(--faint);
+    stroke: var(--gold-bright);
     fill: none;
     stroke-width: 2;
     flex-shrink: 0;
@@ -329,18 +531,18 @@
     outline: none;
     font-family: var(--font-ui);
     font-size: 15.5px;
-    color: var(--text);
+    color: #fff;
     background: transparent;
     min-width: 0;
   }
 
-  #search::placeholder { color: var(--faint); }
+  #search::placeholder { color: #8d99ad; }
 
   .kbd-hint {
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--faint);
-    border: 1px solid var(--line);
+    color: #9aa8bf;
+    border: 1px solid rgba(255, 255, 255, 0.22);
     border-bottom-width: 2px;
     border-radius: 5px;
     padding: 2px 7px;
@@ -348,46 +550,67 @@
   }
 
   /* ============ Layout ============ */
-  .page {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 36px 24px 72px;
+  main.shell {
+    padding-top: 52px;
+    padding-bottom: 80px;
     display: flex;
     flex-direction: column;
-    gap: 44px;
+    gap: 52px;
   }
 
   .section-head {
     display: flex;
-    align-items: baseline;
-    gap: 12px;
-    margin-bottom: 18px;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .section-kicker {
+    width: 7px;
+    height: 34px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, var(--gold-bright), var(--gold-deep));
+    box-shadow: 0 0 14px rgba(200, 169, 110, 0.55);
+    flex-shrink: 0;
   }
 
   .section-head h2 {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 21px;
-    letter-spacing: -0.01em;
+    font-size: 29px;
+    letter-spacing: -0.02em;
     margin: 0;
     color: var(--ink);
   }
 
   .section-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     font-family: var(--font-mono);
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 600;
-    color: var(--muted);
-    background: #e3e9f4;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid rgba(200, 169, 110, 0.45);
     border-radius: 999px;
-    padding: 3px 9px;
+    padding: 5px 13px;
+    box-shadow: 0 2px 8px rgba(10, 19, 34, 0.07);
+  }
+
+  .section-count .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2.4s ease-in-out infinite;
   }
 
   .section-rule {
     flex: 1;
-    height: 1px;
-    background: var(--line);
-    align-self: center;
+    height: 2px;
+    border-radius: 1px;
+    background: linear-gradient(90deg, rgba(200, 169, 110, 0.55), rgba(200, 169, 110, 0.12) 45%, transparent 85%);
   }
 
   /* ============ Portal cards ============ */
@@ -400,15 +623,20 @@
     padding: 0;
   }
 
+  /* grid items stretch so every card matches the tallest */
+  .portal-grid > li { display: flex; }
+
   @media (max-width: 1080px) { .portal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 620px)  { .portal-grid { grid-template-columns: 1fr; } }
 
   .portal {
     --accent: var(--brand-blue);
-    background: var(--panel);
+    flex: 1;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, color-mix(in srgb, var(--accent) 7%, #fff) 100%);
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
-    padding: 20px 20px 18px;
+    padding: 22px 20px 18px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -425,7 +653,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: var(--accent);
+    background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 35%, #fff));
     transform: scaleX(0.32);
     transform-origin: left;
     transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -433,13 +661,30 @@
 
   .portal:hover,
   .portal:focus-within {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+    box-shadow:
+      var(--shadow-md),
+      0 18px 48px color-mix(in srgb, var(--accent) 24%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent);
     border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
   }
 
   .portal:hover::before,
   .portal:focus-within::before { transform: scaleX(1); }
+
+  /* accent light bloom from the top edge */
+  .portal::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(380px 150px at 50% -30px, color-mix(in srgb, var(--accent) 15%, transparent), transparent 70%);
+    opacity: 0;
+    transition: opacity 260ms ease;
+    pointer-events: none;
+  }
+
+  .portal:hover::after,
+  .portal:focus-within::after { opacity: 1; }
 
   .portal-top {
     display: flex;
@@ -448,13 +693,28 @@
     gap: 10px;
   }
 
-  .portal-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--accent);
+  .portal-glyph {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, #fff), color-mix(in srgb, var(--accent) 8%, #fff));
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, #fff);
+    box-shadow: 0 5px 16px color-mix(in srgb, var(--accent) 28%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: color-mix(in srgb, var(--accent) 80%, #000);
+    transition: box-shadow 200ms ease, transform 200ms ease;
+  }
+
+  .portal:hover .portal-glyph,
+  .portal:focus-within .portal-glyph {
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 45%, transparent);
+    transform: translateY(-1px);
   }
 
   .status {
@@ -477,11 +737,21 @@
     animation: pulse 2.4s ease-in-out infinite;
   }
 
+  .portal-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 2px 0 0;
+  }
+
   .portal h3 {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 23px;
-    line-height: 1.12;
+    font-size: 24px;
+    line-height: 1.1;
     letter-spacing: -0.01em;
     color: var(--ink);
     margin: 0;
@@ -500,22 +770,48 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background: var(--ink);
+    background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 90%, #fff) 0%, color-mix(in srgb, var(--accent) 74%, #000) 100%);
     color: #fff;
     font-weight: 600;
     font-size: 14px;
     text-decoration: none;
     padding: 12px 16px;
     border-radius: var(--radius-md);
-    min-height: 44px;
-    transition: background-color 160ms ease, box-shadow 160ms ease;
+    min-height: 46px;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.25) inset,
+      0 4px 14px color-mix(in srgb, var(--accent) 30%, transparent);
+    transition: background 180ms ease, box-shadow 180ms ease, transform 110ms ease, filter 180ms ease;
   }
+
+  /* sheen sweep on hover */
+  .portal-cta::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -80%;
+    width: 50%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+    transform: skewX(-20deg);
+    transition: left 450ms ease;
+  }
+
+  .portal-cta:hover::after,
+  .portal-cta:focus-visible::after { left: 130%; }
 
   .portal-cta:hover,
   .portal-cta:focus-visible {
-    background: var(--accent);
-    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 40%, transparent);
+    filter: brightness(1.08) saturate(1.08);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.3) inset,
+      0 8px 26px color-mix(in srgb, var(--accent) 50%, transparent);
+    transform: translateY(-1px);
   }
+
+  .portal-cta:active { transform: scale(0.97); }
 
   .portal-cta .arrow { transition: transform 160ms ease; }
   .portal-cta:hover .arrow,
@@ -545,24 +841,52 @@
     stroke-width: 2;
   }
 
-  /* ============ Resource rows ============ */
-  .resource-group { margin-bottom: 22px; }
-  .resource-group:last-child { margin-bottom: 0; }
+  /* ============ Resource groups ============ */
+  .resource-group {
+    --g-accent: var(--gold);
+    margin-bottom: 26px;
+  }
+  .resource-group:last-of-type { margin-bottom: 0; }
+
+  .group-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px 2px;
+  }
+
+  .group-head::before {
+    content: "";
+    width: 9px;
+    height: 9px;
+    border-radius: 3px;
+    background: var(--g-accent);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
 
   .group-label {
     font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--g-accent) 75%, #1a2335);
+    margin: 0;
+  }
+
+  .group-count {
+    font-family: var(--font-mono);
     font-size: 10.5px;
     font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
     color: var(--faint);
-    margin: 0 0 8px 2px;
   }
 
   .resource-list {
     background: var(--panel);
     border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
+    border-left: 3px solid var(--g-accent);
+    border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
   }
@@ -571,16 +895,17 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 13px 18px;
+    padding: 15px 20px;
     text-decoration: none;
     color: var(--text);
     border-bottom: 1px solid var(--line);
-    transition: background-color 140ms ease, padding-left 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
     position: relative;
+    transition: background-color 140ms ease, padding-left 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   .resource:last-child { border-bottom: 0; }
 
+  /* accent bar slides in from the left edge on hover */
   .resource::before {
     content: "";
     position: absolute;
@@ -588,25 +913,41 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: var(--accent, var(--brand-blue));
-    transform: scaleY(0);
-    transition: transform 180ms ease;
+    background: var(--accent, var(--g-accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   .resource:hover,
   .resource:focus-visible {
-    background: #f6f8fc;
-    padding-left: 24px;
+    background: color-mix(in srgb, var(--accent, var(--g-accent)) 6%, #fff);
+    padding-left: 28px;
   }
 
   .resource:hover::before,
-  .resource:focus-visible::before { transform: scaleY(1); }
+  .resource:focus-visible::before { transform: scaleX(1); }
+
+  .resource:active { background: color-mix(in srgb, var(--accent, var(--g-accent)) 11%, #fff); }
+
+  /* staggered fade-in as each group scrolls into view */
+  @media (prefers-reduced-motion: no-preference) {
+    .resource.pre { opacity: 0; }
+    .resource.in {
+      animation: row-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--rd, 0ms) both;
+    }
+    @keyframes row-in {
+      from { opacity: 0; transform: translateX(-14px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+  }
 
   .resource-icon {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
     border-radius: 9px;
-    background: color-mix(in srgb, var(--accent, var(--brand-blue)) 12%, #fff);
+    background: color-mix(in srgb, var(--accent, var(--g-accent)) 14%, #fff);
+    border: 1px solid color-mix(in srgb, var(--accent, var(--g-accent)) 22%, #fff);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -616,7 +957,7 @@
   .resource-icon svg {
     width: 16px;
     height: 16px;
-    stroke: var(--accent, var(--brand-blue));
+    stroke: color-mix(in srgb, var(--accent, var(--g-accent)) 85%, #000);
     fill: none;
     stroke-width: 2;
   }
@@ -624,33 +965,45 @@
   .resource-name {
     flex: 1;
     min-width: 0;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 14.5px;
+    font-weight: 600;
     color: var(--ink);
     line-height: 1.35;
   }
 
   .resource-meta {
     font-family: var(--font-mono);
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    color: var(--faint);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    background: #f1f4fa;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 4px 9px;
     flex-shrink: 0;
   }
 
   .resource-arrow {
-    color: var(--faint);
+    color: var(--muted);
     flex-shrink: 0;
     display: flex;
-    transition: transform 160ms ease, color 160ms ease;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #f1f4fa;
+    transition: transform 160ms ease, color 160ms ease, background-color 160ms ease;
   }
 
-  .resource-arrow svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .resource-arrow svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.2; }
 
-  .resource:hover .resource-arrow {
+  .resource:hover .resource-arrow,
+  .resource:focus-visible .resource-arrow {
     transform: translateX(3px);
-    color: var(--accent, var(--brand-blue));
+    color: #fff;
+    background: var(--accent, var(--g-accent));
   }
 
   @media (max-width: 560px) {
@@ -679,10 +1032,10 @@
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    background: #e9eef8;
-    border: 1px solid #d4ddef;
+    background: linear-gradient(135deg, rgba(200, 169, 110, 0.12), rgba(93, 143, 192, 0.08));
+    border: 1px solid rgba(200, 169, 110, 0.35);
     border-radius: var(--radius-md);
-    padding: 14px 18px;
+    padding: 15px 18px;
     color: var(--muted);
     font-size: 13.5px;
     line-height: 1.6;
@@ -691,7 +1044,7 @@
   .note svg {
     width: 16px;
     height: 16px;
-    stroke: var(--brand-blue);
+    stroke: var(--gold-deep);
     fill: none;
     stroke-width: 2;
     flex-shrink: 0;
@@ -701,16 +1054,24 @@
   .note strong { color: var(--ink); font-weight: 600; }
 
   footer {
-    border-top: 1px solid var(--line);
-    padding: 22px 24px 28px;
-    text-align: center;
-    color: var(--faint);
+    background: linear-gradient(180deg, #0a1322, #0f1b30);
+    border-top: 1px solid rgba(200, 169, 110, 0.25);
+    color: #8d99ad;
     font-size: 12.5px;
     font-family: var(--font-mono);
     letter-spacing: 0.04em;
   }
 
-  footer .sep { margin: 0 10px; color: var(--brand-blue); }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding-top: 26px;
+    padding-bottom: 30px;
+  }
+
+  footer .sep { color: var(--gold); }
 
   /* ============ Entrance animation ============ */
   @media (prefers-reduced-motion: no-preference) {
@@ -728,21 +1089,33 @@
     }
   }
 
-  @media (max-width: 760px) {
+  @media (max-width: 860px) {
     .topnav, .clock { display: none; }
-    .hero { padding: 36px 18px 80px; }
-    .command, .page { padding-left: 18px; padding-right: 18px; }
+    .shell { padding-left: 20px; padding-right: 20px; }
+    .topbar-inner { height: 72px; gap: 14px; }
+    .brand-plate { padding: 8px 14px; }
+    .brand-plate img { height: 26px; }
+    .brand-sub .tpa { display: none; }
+    .hero { padding: 44px 0 120px; }
+    .hero::after { width: 280px; height: 250px; right: -60px; }
+    .hero-wave svg { height: 54px; }
   }
 </style>
 </head>
 <body>
+<div id="progress" aria-hidden="true"></div>
 <a href="#portals" class="skip-link">Skip to portal selection</a>
 
 <header class="topbar">
-  <div class="topbar-inner">
-    <a class="wordmark" href="#" aria-label="Maverick Administrators Ops Hub">
-      <span class="wordmark-name">M<span class="tri" aria-hidden="true">▲</span>VERICK</span>
-      <span class="wordmark-tag">Ops Hub</span>
+  <div class="shell topbar-inner">
+    <a class="brand" href="#" aria-label="Maverick Administrators Ops Hub">
+      <span class="brand-plate">
+        <img src="logo_maverick.png" alt="Maverick Administrators" />
+      </span>
+      <span class="brand-sub" aria-hidden="true">
+        <span class="ops">Ops Hub</span>
+        <span class="tpa">Surrogacy Insurance TPA</span>
+      </span>
     </a>
     <nav class="topnav" aria-label="Sections">
       <a href="#portals">Portals</a>
@@ -756,32 +1129,63 @@
 </header>
 
 <section class="hero">
-  <div class="hero-inner">
-    <p class="hero-eyebrow">Maverick Administrators · Surrogacy Insurance TPA</p>
-    <h1 id="greeting">Operations Hub</h1>
-    <p class="hero-sub">Every broker portal, tracker, and report in one place. All portals share the same agency lookup and rate table, then route to the selected broker&rsquo;s forms.</p>
-    <div class="hero-stats">
-      <span class="stat-chip"><strong>4</strong> broker portals</span>
-      <span class="stat-chip"><strong>9</strong> trackers &amp; reports</span>
-      <span class="stat-chip"><strong>2</strong> application paths — Singleton &amp; Split Embryo</span>
+  <span class="blob blob-gold" aria-hidden="true"></span>
+  <span class="blob blob-blue" aria-hidden="true"></span>
+  <svg class="constellation" viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g class="cg-1">
+      <g stroke="rgba(200,169,110,0.15)" stroke-width="1" fill="none">
+        <path d="M120,150 L310,82 L530,195 L765,95 L985,175 L1205,72 L1335,205"/>
+        <path d="M985,175 L1105,305 L865,265 L530,195"/>
+      </g>
+      <g fill="rgba(200,169,110,0.55)">
+        <circle cx="120" cy="150" r="2"/><circle cx="310" cy="82" r="2.5"/><circle cx="530" cy="195" r="2"/>
+        <circle cx="765" cy="95" r="2.5"/><circle cx="985" cy="175" r="2"/><circle cx="1205" cy="72" r="2.5"/>
+        <circle cx="1335" cy="205" r="2"/><circle cx="1105" cy="305" r="2"/><circle cx="865" cy="265" r="1.5"/>
+      </g>
+    </g>
+    <g class="cg-2">
+      <g stroke="rgba(93,143,192,0.14)" stroke-width="1" fill="none">
+        <path d="M205,395 L425,310 L645,430 L905,385 L1155,470 L1340,365"/>
+        <path d="M645,430 L425,310 M905,385 L1105,305"/>
+      </g>
+      <g fill="rgba(93,143,192,0.5)">
+        <circle cx="205" cy="395" r="2"/><circle cx="425" cy="310" r="2.5"/><circle cx="645" cy="430" r="2"/>
+        <circle cx="905" cy="385" r="2.5"/><circle cx="1155" cy="470" r="2"/><circle cx="1340" cy="365" r="2"/>
+      </g>
+    </g>
+  </svg>
+  <div class="shell hero-inner">
+    <p class="hero-eyebrow reveal">Maverick Administrators · Operations</p>
+    <h1 class="reveal r-2"><span id="greeting-time">Welcome.</span> <span class="accent">Where to?</span></h1>
+    <p class="hero-sub reveal r-3">Every broker portal, tracker, and report in one place. All portals share the same agency lookup and rate table, then route to the selected broker&rsquo;s forms.</p>
+    <div class="hero-stats reveal r-4">
+      <span class="stat-chip"><strong data-count="4">0</strong> broker portals</span>
+      <span class="stat-chip"><strong data-count="9">0</strong> trackers &amp; reports</span>
+      <span class="stat-chip"><strong data-count="2">0</strong> application paths — Singleton &amp; Split Embryo</span>
     </div>
+    <div class="command reveal r-5">
+      <div class="search-shell">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        <input id="search" type="search" placeholder="Search portals, trackers, and reports…" autocomplete="off" aria-label="Filter portals, trackers, and reports" />
+        <span class="kbd-hint" aria-hidden="true">/</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+      <path d="M0,42 C240,92 480,2 720,32 C960,62 1200,82 1440,36 L1440,90 L0,90 Z" fill="#eef1f7"/>
+      <path d="M0,42 C240,92 480,2 720,32 C960,62 1200,82 1440,36" fill="none" stroke="rgba(200,169,110,0.5)" stroke-width="2"/>
+    </svg>
   </div>
 </section>
 
-<div class="command">
-  <div class="search-shell">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
-    <input id="search" type="search" placeholder="Search portals, trackers, and reports…" autocomplete="off" aria-label="Filter portals, trackers, and reports" />
-    <span class="kbd-hint" aria-hidden="true">/</span>
-  </div>
-</div>
-
-<main class="page" id="main">
+<main class="shell" id="main">
 
   <section id="portals" aria-labelledby="portals-title">
     <div class="section-head">
+      <span class="section-kicker" aria-hidden="true"></span>
       <h2 id="portals-title">Broker Portals</h2>
-      <span class="section-count" id="portal-count">4</span>
+      <span class="section-count"><span class="dot" aria-hidden="true"></span><span id="portal-count">4</span></span>
       <span class="section-rule" aria-hidden="true"></span>
     </div>
 
@@ -790,9 +1194,10 @@
       <li class="rise" data-search="ifi broker portal singleton split embryo">
         <article class="portal" style="--accent: var(--c-ifi)" aria-labelledby="card-ifi-title">
           <div class="portal-top">
-            <span class="portal-eyebrow">Broker</span>
+            <span class="portal-glyph" aria-hidden="true">IFI</span>
             <span class="status"><span class="dot" aria-hidden="true"></span>Live</span>
           </div>
+          <p class="portal-eyebrow">Broker</p>
           <h3 id="card-ifi-title">IFI</h3>
           <p class="portal-desc">Singleton and Split Embryo application routing for IFI-bound submissions.</p>
           <a class="portal-cta" href="https://maverickadministrators.github.io/maverick-form-portal/" aria-label="Open IFI Portal">
@@ -809,9 +1214,10 @@
       <li class="rise" data-search="art risk broker portal singleton split embryo">
         <article class="portal" style="--accent: var(--c-art)" aria-labelledby="card-art-title">
           <div class="portal-top">
-            <span class="portal-eyebrow">Broker</span>
+            <span class="portal-glyph" aria-hidden="true">AR</span>
             <span class="status"><span class="dot" aria-hidden="true"></span>Live</span>
           </div>
+          <p class="portal-eyebrow">Broker</p>
           <h3 id="card-art-title">ART Risk</h3>
           <p class="portal-desc">Singleton and Split Embryo application routing for ART Risk-bound submissions.</p>
           <a class="portal-cta" href="https://maverickadministrators.github.io/maverick-form-portal-art/" aria-label="Open ART Risk Portal">
@@ -828,9 +1234,10 @@
       <li class="rise" data-search="whillock broker portal singleton split embryo">
         <article class="portal" style="--accent: var(--c-whk)" aria-labelledby="card-whillock-title">
           <div class="portal-top">
-            <span class="portal-eyebrow">Broker</span>
+            <span class="portal-glyph" aria-hidden="true">WH</span>
             <span class="status"><span class="dot" aria-hidden="true"></span>Live</span>
           </div>
+          <p class="portal-eyebrow">Broker</p>
           <h3 id="card-whillock-title">Whillock</h3>
           <p class="portal-desc">Singleton and Split Embryo application routing for Whillock-bound submissions.</p>
           <a class="portal-cta" href="https://maverickadministrators.github.io/maverick-form-portal-whillock/" aria-label="Open Whillock Portal">
@@ -847,9 +1254,10 @@
       <li class="rise" data-search="brown and brown b&b bb broker portal singleton split embryo">
         <article class="portal" style="--accent: var(--c-bb)" aria-labelledby="card-bb-title">
           <div class="portal-top">
-            <span class="portal-eyebrow">Broker</span>
+            <span class="portal-glyph" aria-hidden="true">B&amp;B</span>
             <span class="status"><span class="dot" aria-hidden="true"></span>Live</span>
           </div>
+          <p class="portal-eyebrow">Broker</p>
           <h3 id="card-bb-title">Brown &amp; Brown</h3>
           <p class="portal-desc">Singleton and Split Embryo application routing for Brown &amp; Brown-bound submissions.</p>
           <a class="portal-cta" href="https://maverickadministrators.github.io/maverick-form-portal-bb/" target="_blank" rel="noopener" aria-label="Open Brown & Brown Portal">
@@ -868,13 +1276,17 @@
 
   <section id="resources" aria-labelledby="resources-title">
     <div class="section-head">
+      <span class="section-kicker" aria-hidden="true"></span>
       <h2 id="resources-title">Trackers &amp; Reports</h2>
-      <span class="section-count" id="resource-count">9</span>
+      <span class="section-count"><span class="dot" aria-hidden="true"></span><span id="resource-count">9</span></span>
       <span class="section-rule" aria-hidden="true"></span>
     </div>
 
-    <div class="resource-group" data-group>
-      <p class="group-label">Policy &amp; Agency</p>
+    <div class="resource-group" data-group style="--g-accent: var(--gold)">
+      <div class="group-head">
+        <p class="group-label">Policy &amp; Agency</p>
+        <span class="group-count">02</span>
+      </div>
       <div class="resource-list">
 
         <a class="resource" data-search="newborn insurance policy tracker excel sharepoint" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQC7qnSLYjqwQ6Hbes_pJ1uYAfMhxeAfGJ6SbjgHXDWcfYY?e=ux6AVD" target="_blank" rel="noopener">
@@ -894,8 +1306,11 @@
       </div>
     </div>
 
-    <div class="resource-group" data-group>
-      <p class="group-label">Application Trackers — by Broker</p>
+    <div class="resource-group" data-group style="--g-accent: var(--brand-blue)">
+      <div class="group-head">
+        <p class="group-label">Application Trackers — by Broker</p>
+        <span class="group-count">04</span>
+      </div>
       <div class="resource-list">
 
         <a class="resource" style="--accent: var(--c-ifi)" data-search="newborn insurance application tracker ifi excel sharepoint" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQDlzL3bVb6vQ4kQ1aHyZ1NDAXB7F-F0xbrTpjiR5wXUVEA?e=IpgFvT" target="_blank" rel="noopener">
@@ -929,8 +1344,11 @@
       </div>
     </div>
 
-    <div class="resource-group" data-group>
-      <p class="group-label">Reports &amp; Tools</p>
+    <div class="resource-group" data-group style="--g-accent: #14b8a6">
+      <div class="group-head">
+        <p class="group-label">Reports &amp; Tools</p>
+        <span class="group-count">03</span>
+      </div>
       <div class="resource-list">
 
         <a class="resource" data-search="surrogacy claims report convex excel sharepoint" href="https://morganandfranz-my.sharepoint.com/:x:/p/aaron/IQAp28xMpsbWQIiCL_vhLc5QAfFN1kCIFSR3gO7FWMLZxv0?e=jrxip4" target="_blank" rel="noopener">
@@ -968,9 +1386,11 @@
 </main>
 
 <footer>
-  <span>Maverick Administrators</span>
-  <span class="sep" aria-hidden="true">▲</span>
-  <span>Internal portal directory</span>
+  <div class="shell footer-inner">
+    <span>Maverick Administrators</span>
+    <span class="sep" aria-hidden="true">▲</span>
+    <span>Internal portal directory</span>
+  </div>
 </footer>
 
 <script>
@@ -988,11 +1408,89 @@
     setInterval(tick, 1000);
   })();
 
-  // Time-of-day greeting
+  // Time-of-day greeting, typed out with a caret
   (function () {
     var h = new Date().getHours();
     var part = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
-    document.getElementById('greeting').textContent = 'Good ' + part + '. Where to?';
+    var text = 'Good ' + part + '.';
+    var el = document.getElementById('greeting-time');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = text;
+      return;
+    }
+    el.textContent = '';
+    var typed = document.createTextNode('');
+    var caret = document.createElement('span');
+    caret.className = 'caret';
+    caret.setAttribute('aria-hidden', 'true');
+    el.appendChild(typed);
+    el.appendChild(caret);
+    var i = 0;
+    setTimeout(function type() {
+      typed.data = text.slice(0, ++i);
+      if (i < text.length) {
+        setTimeout(type, 55 + Math.random() * 65);
+      } else {
+        setTimeout(function () { caret.classList.add('done'); }, 1300);
+      }
+    }, 650);
+  })();
+
+  // Scroll progress bar
+  (function () {
+    var bar = document.getElementById('progress');
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+    }
+    function request() {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }
+    window.addEventListener('scroll', request, { passive: true });
+    window.addEventListener('resize', request);
+    update();
+  })();
+
+  // Staggered row reveal as each tracker group scrolls into view
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+        !('IntersectionObserver' in window)) return;
+    var lists = document.querySelectorAll('.resource-list');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        io.unobserve(entry.target);
+        entry.target.querySelectorAll('.resource').forEach(function (row, i) {
+          row.style.setProperty('--rd', (i * 60) + 'ms');
+          row.classList.remove('pre');
+          row.classList.add('in');
+        });
+      });
+    }, { threshold: 0.15 });
+    lists.forEach(function (list) {
+      list.querySelectorAll('.resource').forEach(function (row) { row.classList.add('pre'); });
+      io.observe(list);
+    });
+  })();
+
+  // Count-up animation for hero stats
+  (function () {
+    var els = document.querySelectorAll('[data-count]');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    els.forEach(function (el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      if (reduced) { el.textContent = target; return; }
+      var start = null, dur = 900;
+      function step(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
   })();
 
   // Search filter — "/" focuses, Escape clears
